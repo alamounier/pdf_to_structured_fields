@@ -3,7 +3,7 @@ import camelot
 import pandas as pd
 import logging
 from unidecode import unidecode
-from pdf_corretagem.configs.rules.regras import rules_dict
+from configs.rules.regras import rules_dict
 from configs.tools.postgre import RDSPostgreSQLManager
 
 logging.basicConfig(level=logging.INFO)
@@ -33,9 +33,9 @@ class PDFTableExtractor:
         self.save_csv(main, self.file_name)
         self.save_csv(small, f"{self.file_name}_small")
 
-        logging.info(f"Sending to DB - {self.file_name}")
-        self.send_to_db(main, f"Fatura_{self.configs['name']}".lower())
-        self.send_to_db(small, f"Fatura_{self.configs['name']}_small".lower())
+        # logging.info(f"Sending to DB - {self.file_name}")
+        # self.send_to_db(main, f"Fatura_{self.configs['name']}".lower())
+        # self.send_to_db(small, f"Fatura_{self.configs['name']}_small".lower())
 
         return {"main": main, "small": small}
 
@@ -105,7 +105,7 @@ def list_files(folder):
 
 if __name__ == "__main__":
     corretora = 'jornada'
-    path = os.path.abspath(f"pdf_corretagem/files/pdf/{corretora}/")
+    path = os.path.abspath(f"src/files/pdf/{corretora}/")
     files = list_files(path)
     
     for file in files:
